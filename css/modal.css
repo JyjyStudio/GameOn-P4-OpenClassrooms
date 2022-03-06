@@ -168,7 +168,13 @@ input {
 	font-size: 20px;
 	height: 48px;
 }
-.formData[data-error]::after {
+#modal-form input:valid, .formData textarea:valid {
+    border: 3px green solid;
+}
+#modal-form input.invalid, .formData textarea.invalid {
+    border : 3px red solid;
+}
+/* .formData[data-error]::after {
 	content: attr(data-error);
 	font-size: 0.4em;
 	color: #e54858;
@@ -185,7 +191,7 @@ input {
 }
 .formData[data-error-visible="true"] .text-control {
 	border: 2px solid #e54858;
-}
+} */
 /* 
 input[data-error]::after {
     content: attr(data-error);
