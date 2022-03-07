@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@300&display=swap');
+
 :root {
 	--font-default: "DM Sans", Arial, Helvetica, sans-serif;
 	--font-slab: var(--font-default);
@@ -15,7 +17,6 @@ body {
 	margin: 0;
 	display: flex;
 	flex-direction: column;
-	background-image: url("../images/background.png"); /* image inexistante ?? */
 	font-family: var(--font-default);
 	font-size: 18px;
 	max-width: 1300px;
@@ -130,7 +131,7 @@ main {
 }
 
 .content {
-	margin: 5% auto;
+	margin: 3% auto;
 	width: 100%;
 	max-width: 500px;
 	animation-name: modalopen;
@@ -144,20 +145,16 @@ main {
 }
 
 .modal-body {
-	padding: 15px 8%;
-	margin: 15px auto;
+	padding: 0 8% 15px;
 }
 
 label {
 	font-family: var(--font-default);
-	font-size: 17px;
+	font-size: 15px;
 	font-weight: normal;
 	display: inline-block;
-	margin-bottom: 11px;
 }
 input {
-	padding: 8px;
-	border: 0.8px solid #ccc;
 	outline: none;
 }
 .text-control {
@@ -165,18 +162,43 @@ input {
 	padding: 8px;
 	width: 100%;
 	border-radius: 8px;
-	font-size: 20px;
+	font-size: 17px;
 	height: 48px;
 }
-#modal-form input:valid, .formData textarea:valid {
-    border: 3px green solid;
+/* Disposition du formulaire */
+.form-data {
+	position: relative;
 }
-#modal-form input.invalid, .formData textarea.invalid {
-    border : 3px red solid;
+.form-data:first-child {
+	margin-top: 20px;
 }
-/* .formData[data-error]::after {
+.form-data input:valid{
+    box-shadow: 0 0 10px 1px green;
+}
+form .first, form .last, form .birthdate,form .email {
+	padding-bottom: 25px;
+}
+form .quantity, form .location {
+	padding-bottom: 10px;
+}
+form .checkbox {
+	padding-bottom: 5px;
+}
+form .checkbox .msg {
+	left: 35px;
+    bottom: -7px;
+}
+.msg {
+	display: block;
+    font-size: small;
+	position: absolute;
+	font-family: 'Sansita Swashed', cursive;
+	font-weight: 100;
+	color: red;
+}
+
+/* .form-data[data-error]::after {
 	content: attr(data-error);
-	font-size: 0.4em;
 	color: #e54858;
 	display: block;
 	margin-top: 7px;
@@ -185,19 +207,33 @@ input {
 	line-height: 0.3;
 	opacity: 0;
 	transition: 0.3s;
-}
-.formData[data-error-visible="true"]::after {
+} */
+/* .form-data[data-error-visible="true"]::after {
 	opacity: 1;
+} */
+[type="radio"], [type="checkbox"] {
+	clip: rect(0 0 0 0); 
+	position: absolute; 
+  }
+  [type="radio"] + span {
+	display: block;
+  }
+  [type="radio"]:checked + span:before {
+	box-shadow: 0 0 0 0.2em #000;
+	background:  #8EB2FB;
+  }
+[type="radio"] + span:before {
+	content: '';
+	width: 1em;
+	height: 1em;
+	border-radius: 1em;
+	display: inline-block;
+	border: 0.125em solid #fff;
+	transition: 0.5s ease all;
+	vertical-align: -0.25em;
+	box-shadow: 0 0 0 0.15em #000;
+	margin-right: 0.75em;
 }
-.formData[data-error-visible="true"] .text-control {
-	border: 2px solid #e54858;
-} */
-/* 
-input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
 .checkbox-label,
 .checkbox2-label {
 	position: relative;
@@ -235,9 +271,9 @@ input[data-error]::after {
 	transition: 0.3s;
 	opacity: 0;
 }
-.checkbox-input {
+/* .checkbox-input {
 	display: none;
-}
+} */
 .checkbox-input:checked + .checkbox-label .checkbox-icon::after,
 .checkbox-input:checked + .checkbox2-label .checkbox-icon::after {
 	opacity: 1;
@@ -291,7 +327,7 @@ input[data-error]::after {
 .btn-signup {
 	background: #fe142f;
 	display: block;
-	margin: 0 auto;
+	margin: 20px auto 0;
 	border-radius: 7px;
 	font-size: 1rem;
 	padding: 12px 82px;
@@ -300,7 +336,7 @@ input[data-error]::after {
 	border: 0;
 }
 /* custom select styles */
-.custom-select {
+/* .custom-select {
 	position: relative;
 	font-family: Arial;
 	font-size: 1.1rem;
@@ -312,10 +348,10 @@ input[data-error]::after {
 }
 .select-selected {
 	background-color: #fff;
-}
+} */
 
 /* Style the arrow inside the select element: */
-.select-selected:after {
+/* .select-selected:after {
 	position: absolute;
 	content: "";
 	top: 10px;
@@ -327,10 +363,10 @@ input[data-error]::after {
 	border-left-color: #f00;
 	transform: rotate(-48deg);
 	border-radius: 5px 0 5px 0;
-}
+} */
 
 /* Point the arrow upwards when the select box is open (active): */
-.select-selected.select-arrow-active:after {
+/* .select-selected.select-arrow-active:after {
 	transform: rotate(135deg);
 	top: 13px;
 }
@@ -344,27 +380,28 @@ input[data-error]::after {
 	cursor: pointer;
 	border-radius: 8px;
 	height: 48px;
-}
+} */
 
 /* Style items (options): */
-.select-items {
+/* .select-items {
 	position: absolute;
 	background-color: #fff;
 	top: 89%;
 	left: 0;
 	right: 0;
 	z-index: 99;
-}
+} */
 
 /* Hide the items when the select box is closed: */
-.select-hide {
+/* .select-hide {
 	display: none;
-}
+} 
 
 .select-items div:hover,
 .same-as-selected {
 	background-color: rgba(0, 0, 0, 0.1);
-}
+} */
+
 /* custom select end */
 .text-label {
 	font-weight: normal;
