@@ -276,15 +276,32 @@ label {
 	background: #3876ac;
 }
 
-/* Disposition du formulaire */
+/* Personnalisation du formulaire */
+
+.valid {
+	border: 1px green solid;
+}
+.invalid {
+	border: 1px red solid;
+}
+.msg {
+	display: block;
+	font-size: small;
+	position: absolute;
+	font-family: "Sansita Swashed", cursive;
+	font-weight: 100;
+	color: red;
+}
+
 .form-data {
 	position: relative;
 }
 .form-data:first-child {
 	margin-top: 20px;
 }
-.form-data input:valid {
-	box-shadow: 0 0 10px 1px green;
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+	cursor: pointer;
 }
 form .first,
 form .last,
@@ -303,15 +320,6 @@ form .checkbox .msg {
 	left: 35px;
 	bottom: -7px;
 }
-.msg {
-	display: block;
-	font-size: small;
-	position: absolute;
-	font-family: "Sansita Swashed", cursive;
-	font-weight: 100;
-	color: red;
-}
-
 [type="radio"],
 [type="checkbox"] {
 	clip: rect(0 0 0 0);
