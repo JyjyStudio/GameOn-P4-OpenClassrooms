@@ -9,7 +9,7 @@ const closeModalIcon = document.querySelector(".close");
 const navIcon = document.querySelector(".nav-icon");
 const modalForm = document.getElementById("modal-form");
 
-// Menu burger
+// Menu mobile
 navIcon.addEventListener("click", editNav);
 function editNav() {
 	if (topNav.className === "topnav") {
@@ -37,25 +37,18 @@ closeModalIcon.addEventListener("click", function () {
 // const fields = document.querySelectorAll("#first, #last, #email, #birthdate, #quantity, .checkbox-icon:checked, #checkbox1");
 const fields = document.querySelectorAll(".form-data input");
 console.log(fields);
+
+modalForm.addEventListener("submit", function (e) {
+	e.preventDefault();
+	fields.forEach((field) => resetField(field));
+
+});
+
 fields.forEach((field) => {
 	field.addEventListener("focus", () => resetField(field));
 	field.addEventListener("blur", () => validateField(field));
 });
 
-function validateField(field) {
-	if (field.checkValidity()) {
-		// field.removeAttribute('data-error', field.validationMessage);
-		return true;
-	} else {
-		// field.setAttribute('data-error', field.validationMessage);
-		field.classList.add("invalid");
-		let msg = document.createElement("span");
-		msg.classList.add("msg");
-		msg.innerText = field.validationMessage;
-		field.parentNode.appendChild(msg);
-		return false;
-	}
-}
 function resetField(field) {
 	if (field.classList.contains("invalid")) {
 		field.classList.remove("invalid");
@@ -64,19 +57,15 @@ function resetField(field) {
 	}
 }
 
-modalForm.addEventListener("submit", function (e) {
-	fields.forEach((field) => resetField(field));
-	let valid = true;
-
-	fields.forEach((field) => {
-		if (!validateField(field)) {
-			valid = false;
-			e.preventDefault();
-		}
-	});
-	if (valid) {
-		this.submit();
+function validateField(field) {
+	if (field.checkValidity()) {
+		return true;
+	} else {
+		field.classList.add("invalid");
+		let msg = document.createElement("span");
+		msg.classList.add("msg");
+		msg.innerText = field.validationMessage;
+		field.parentNode.appendChild(msg);
+		return false;
 	}
-
-	// return validate();
-});
+}
