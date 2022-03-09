@@ -331,30 +331,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	right: 40px;
 }
 
-[type="radio"],
-[type="checkbox"] {
-	clip: rect(0 0 0 0);
-	position: absolute;
-}
-[type="radio"] + span {
-	display: block;
-}
-[type="radio"]:checked + span:before {
-	box-shadow: 0 0 0 0.2em #000;
-	background: #8eb2fb;
-}
-[type="radio"] + span:before {
-	content: "";
-	width: 1em;
-	height: 1em;
-	border-radius: 1em;
-	display: inline-block;
-	border: 0.125em solid #fff;
-	transition: 0.5s ease all;
-	vertical-align: -0.25em;
-	box-shadow: 0 0 0 0.15em #000;
-	margin-right: 0.75em;
-}
 .checkbox-label,
 .checkbox2-label {
 	position: relative;
@@ -392,9 +368,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	transition: 0.3s;
 	opacity: 0;
 }
-/* .checkbox-input {
+.checkbox-input {
 	display: none;
-} */
+}
 .checkbox-input:checked + .checkbox-label .checkbox-icon::after,
 .checkbox-input:checked + .checkbox2-label .checkbox-icon::after {
 	opacity: 1;
@@ -426,6 +402,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	font-size: 16px;
 }
 
+/* Message de validation */
+#validation-message {
+	position: absolute;
+    top: 50%;
+	text-align: center;
+	visibility: hidden;
+}
 /* Footer */
 
 footer {
