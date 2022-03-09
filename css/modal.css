@@ -35,7 +35,7 @@ img {
 /* Menu de Navigation */
 .topnav {
 	overflow: hidden;
-	margin: 3.5%;
+	margin: 1.5%;
 }
 .topnav a {
 	float: left;
@@ -183,8 +183,8 @@ main {
 /* Icone pour fermer le formulaire */
 .close {
 	position: absolute;
-	right: 15px;
-	top: 15px;
+	right: 10px;
+	top: 10px;
 	width: 32px;
 	height: 32px;
 	opacity: 1;
@@ -216,13 +216,12 @@ main {
 	top: 0;
 	height: 100%;
 	width: 100%;
-	overflow: auto;
 	background-color: rgba(26, 39, 156, 0.4);
 }
 
 /* Contenu de la modale */
 .content {
-	margin: 3% auto;
+	margin: 2% auto;
 	width: 100%;
 	max-width: 500px;
 	animation-name: modalopen;
@@ -238,27 +237,6 @@ main {
 /* div parent du formulaire */
 .modal-body {
 	padding: 0 8% 15px;
-}
-
-/* Personnalisation des inputs et labels */
-input {
-	outline: none;
-}
-
-.text-control {
-	/*mise en forme des inputs*/
-	padding: 8px;
-	width: 100%;
-	border-radius: 8px;
-	font-size: 15px;
-	height: 35px;
-}
-
-label {
-	font-family: var(--font-default);
-	font-size: 15px;
-	font-weight: normal;
-	display: inline-block;
 }
 
 /* btn pour valider le formulaire */
@@ -278,48 +256,81 @@ label {
 
 /* Personnalisation du formulaire */
 
-.valid {
-	border: 1px green solid;
+
+.text-control {
+	/*mise en forme des inputs*/
+	padding: 8px;
+	width: 100%;
+	border-radius: 6px;
+	outline: none;
+	display: block;
+	border: 2px black solid;
+	margin: 0;
 }
-.invalid {
-	border: 1px red solid;
+
+label {
+	font-family: var(--font-default);
+	font-size: 15px;
+	font-weight: normal;
+	display: inline-block;
 }
-.msg {
+
+.form-data {
+	position: relative;
+	padding-bottom: 15px;
+}
+
+/* visuel des erreurs */
+.form-data i {
+    position: absolute;
+    right: 10px;
+    top: 37px;
+	visibility: hidden;
+}
+
+.success i.fa-circle-check,
+.error i.fa-circle-exclamation {
+	visibility: visible;
+}
+
+.success input {
+	border: 3px #2ecc71 solid;
+}
+.fa-circle-check {
+	color: #2ecc71;
+}
+
+.error input {
+	border: 3px #e74c3c solid;
+}
+.fa-circle-exclamation {
+	color: #e74c3c;
+}
+
+.form-data small {
 	display: block;
 	font-size: small;
 	position: absolute;
 	font-family: "Sansita Swashed", cursive;
 	font-weight: 100;
-	color: red;
+	color: #e74c3c;
+	visibility: hidden;
+}
+.error small {
+	visibility: visible;
+}
+.checkbox small {
+	top: 25px;
+	left: 40px;
 }
 
-.form-data {
-	position: relative;
-}
-.form-data:first-child {
-	margin-top: 20px;
-}
-
+/* disposition des inputs et labels */
 input[type="date"]::-webkit-calendar-picker-indicator {
 	cursor: pointer;
+	position: absolute;
+	right: 40px;
 }
-form .first,
-form .last,
-form .birthdate,
-form .email {
-	padding-bottom: 25px;
-}
-form .quantity,
-form .location {
-	padding-bottom: 10px;
-}
-form .checkbox {
-	padding-bottom: 5px;
-}
-form .checkbox .msg {
-	left: 35px;
-	bottom: -7px;
-}
+
 [type="radio"],
 [type="checkbox"] {
 	clip: rect(0 0 0 0);
@@ -432,7 +443,7 @@ footer {
 	color: #fe142f;
 	padding: 0;
 	font-size: 1rem;
-	margin: 60px 0 30px;
+	margin-bottom: 30px;
 	font-weight: bolder;
 }
 
