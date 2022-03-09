@@ -2,18 +2,18 @@
 // DOM Elements
 
 const topNav = document.getElementById("myTopnav");
+const navIcon = document.querySelector(".nav-icon");
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".form-data");
 const closeModalIcon = document.querySelector(".close");
-const navIcon = document.querySelector(".nav-icon");
 const modalForm = document.getElementById("modal-form");
+const formData = document.querySelectorAll(".form-data");
 
 // Menu mobile
 navIcon.addEventListener("click", editNav);
 function editNav() {
 	if (topNav.className === "topnav") {
-		topNav.className += " responsive";
+		topNav.className += "responsive";
 	} else {
 		topNav.className = "topnav";
 	}
@@ -34,38 +34,48 @@ closeModalIcon.addEventListener("click", function () {
 
 // Form on submit event
 
-// const fields = document.querySelectorAll("#first, #last, #email, #birthdate, #quantity, .checkbox-icon:checked, #checkbox1");
-const fields = document.querySelectorAll(".form-data input");
-console.log(fields);
+const inputs = document.querySelectorAll(
+	"#firstname, #lastname, #email, #birthdate, #quantity, #checkbox1"
+);
 
 modalForm.addEventListener("submit", function (e) {
 	e.preventDefault();
-	fields.forEach((field) => resetField(field));
 
+	//input values
+	const firstnameValue = document.getElementById("firstname").value.trim();
+	const lastnameValue = document.getElementById("lastname").value.trim();
+	const emailValue = document.getElementById("email").value.trim();
+	const birthdateValue = document.getElementById("birthdate").value.trim();
+	const quantityValue = document.getElementById("quantity").value.trim();
+	const checkbox1Value = document.getElementById("checkbox1").checked;
+	console.log(firstnameValue);
+	// inputs.forEach((input) => resetInput(input));
 });
 
-fields.forEach((field) => {
-	field.addEventListener("focus", () => resetField(field));
-	field.addEventListener("blur", () => validateField(field));
+inputs.forEach((input) => {
+	input.addEventListener("focus", () => resetInput(input));
+	input.addEventListener("blur", () => checkInput(input));
 });
 
-function resetField(field) {
-	if (field.classList.contains("invalid")) {
-		field.classList.remove("invalid");
-		let message = field.parentNode.lastChild;
-		message.remove();
+function resetInput(input) {
+	if (input.parentElement.classList.contains("error")) {
+		input.parentElement.classList.remove("error");
+	}
+	if (input.parentElement.classList.contains("success")) {
+		input.parentElement.classList.remove("success");
 	}
 }
 
-function validateField(field) {
-	if (field.checkValidity()) {
+function checkInput(input) {
+	if (input.valid) {
+		input.parentElement.classList.add("success");
 		return true;
 	} else {
-		field.classList.add("invalid");
-		let msg = document.createElement("span");
-		msg.classList.add("msg");
-		msg.innerText = field.validationMessage;
-		field.parentNode.appendChild(msg);
+		if (input.parentElement.classList.contains("success")) {
+			input.parentElement.classList.remove("success");
+		}
+		const small = input.parentElement.getElementsByTagName("small");
+		input.parentElement.classList.add("error");
 		return false;
 	}
 }
