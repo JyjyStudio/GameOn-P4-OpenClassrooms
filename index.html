@@ -6,8 +6,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Reservation</title>
+	<!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
 	<!-- Fontawesome-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 	<!--google font-->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,27 +62,42 @@
 				<span class="close"></span>
 				<div class="modal-body">
 					<form id="modal-form" name="reserve" action="index.html" method="get">
-						<div class="form-data first">
-							<label for="first">Prénom</label>
-							<input class="text-control" type="text" id="first" name="first" />
+						<div class="form-data" id="firstname-container">
+							<label for="firstname">Prénom</label>
+							<input class="text-control" type="text" id="firstname" name="firstname" />
+							<i class="fa-solid fa-circle-check"></i>
+							<i class="fa-solid fa-circle-exclamation"></i>
+							<small>error message</small>
 						</div>
-						<div class="form-data last">
-							<label for="last">Nom</label>
-							<input class="text-control" type="text" id="last" name="last" />
+						<div class="form-data" id="lastname-container">
+							<label for="lastname">Nom</label>
+							<input class="text-control" type="text" id="lastname" name="lastname" />
+							<i class="fa-solid fa-circle-check"></i>
+							<i class="fa-solid fa-circle-exclamation"></i>
+							<small>error message</small>
 						</div>
-						<div class="form-data email">
+						<div class="form-data email" id="email-container">
 							<label for="email">E-mail</label>
 							<input class="text-control" type="email" id="email" name="email" />
+							<i class="fa-solid fa-circle-check"></i>
+							<i class="fa-solid fa-circle-exclamation"></i>
+							<small>error message</small>
 						</div>
-						<div class="form-data birthdate">
+						<div class="form-data birthdate" id="birthdate-container">
 							<label for="birthdate">Date de naissance</label>
 							<input class="text-control" type="date" id="birthdate" name="birthdate" />
+							<i class="fa-solid fa-circle-check"></i>
+							<i class="fa-solid fa-circle-exclamation"></i>
+							<small>error message</small>
 						</div>
-						<div class="form-data quantity">
+						<div class="form-data quantity" id="quantity-container">
 							<label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label>
 							<input class="text-control" id="quantity" type="number" name="quantity" />
+							<i class="fa-solid fa-circle-check"></i>
+							<i class="fa-solid fa-circle-exclamation"></i>
+							<small>error message</small>
 						</div>
-						<div class="form-data location">
+						<div class="form-data location" id="location-container">
 							<p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
 							<input class="checkbox-input" id="location1" type="radio" name="location" value="New York"
 								checked />
@@ -116,18 +133,21 @@
 								Portland
 							</label>
 						</div>
-						<div class="form-data checkbox">
+						<div class="form-data checkbox" id="checkbox1-container">
 							<input class="checkbox-input" id="checkbox1" type="checkbox" checked />
 							<label class="checkbox2-label" for="checkbox1">
 								<span class="checkbox-icon"></span>
 								J'ai lu et accepté les conditions d'utilisation.
 							</label>
+							<small>error message</small>
 						</div>
-						<input class="checkbox-input" id="checkbox2" type="checkbox" />
-						<label class="checkbox2-label" for="checkbox2">
-							<span class="checkbox-icon"></span>
-							Je souhaite être prévenu des prochains évènements.
-						</label>
+						<div class="form-data checkbox" id="checkbox2-container">
+							<input class="checkbox-input" id="checkbox2" type="checkbox" />
+							<label class="checkbox2-label" for="checkbox2">
+								<span class="checkbox-icon"></span>
+								Je souhaite être prévenu des prochains évènements.
+							</label>
+						</div>
 						<button class="button btn-submit" type="submit">C'est parti</button>
 					</form>
 				</div>
