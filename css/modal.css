@@ -284,13 +284,12 @@ label {
 	position: absolute;
 	right: 10px;
 	top: 37px;
-	visibility: hidden;
+	display: none;
 }
 
 .success i.fa-circle-check,
 .error i.fa-circle-exclamation {
-	visibility: visible;
-	z-index: -1;
+	display: inline-block;
 }
 
 .success input {
