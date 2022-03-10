@@ -256,7 +256,6 @@ main {
 
 /* Personnalisation du formulaire */
 
-
 .text-control {
 	/*mise en forme des inputs*/
 	padding: 8px;
@@ -282,15 +281,16 @@ label {
 
 /* visuel des erreurs */
 .form-data i {
-    position: absolute;
-    right: 10px;
-    top: 37px;
+	position: absolute;
+	right: 10px;
+	top: 37px;
 	visibility: hidden;
 }
 
 .success i.fa-circle-check,
 .error i.fa-circle-exclamation {
 	visibility: visible;
+	z-index: -1;
 }
 
 .success input {
@@ -331,6 +331,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	right: 40px;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+
 .checkbox-label,
 .checkbox2-label {
 	position: relative;
@@ -350,7 +362,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	position: absolute;
 	left: -30px;
 	top: -1px;
-	transition: 0.3s;
+	/* transition: 0.3s; */
 }
 .checkbox-label .checkbox-icon::after,
 .checkbox2-label .checkbox-icon::after {
@@ -365,7 +377,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	transition: 0.3s;
+	/* transition: 0.3s; */
 	opacity: 0;
 }
 .checkbox-input {
@@ -405,7 +417,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Message de validation */
 #validation-message {
 	position: absolute;
-    top: 50%;
+	top: 50%;
 	text-align: center;
 	visibility: hidden;
 }
