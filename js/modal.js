@@ -7,7 +7,19 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const closeModalIcon = document.querySelector(".close");
 const modalForm = document.getElementById("modal-form");
-const formData = document.querySelectorAll(".form-data");
+const validationMessage = document.getElementById("validation-message");
+
+// inputs
+const firstname = document.getElementById("firstname");
+const lastname = document.getElementById("lastname");
+const email = document.getElementById("email");
+const birthdate = document.getElementById("birthdate");
+const quantity = document.getElementById("quantity");
+const checkbox1 = document.getElementById("checkbox1");
+
+// verif validation
+let validation = [];
+const validFormResponses = [true, true, true, true, true, true] 
 
 // Menu mobile
 navIcon.addEventListener("click", editNav);
@@ -30,7 +42,19 @@ function launchModal() {
 // close modal event
 closeModalIcon.addEventListener("click", function () {
 	modalbg.style.display = "none";
+	launchNewForm();
 });
+
+function launchNewForm() {
+	inputs.forEach((input) => {
+		resetInput(input);
+		input.value = "";
+	});
+	if (validationMessage.style.visibility == "visible") {
+		modalForm.style.visibility = "visible";
+		validationMessage.style.visibility = "hidden";
+	}
+}
 
 // Form on submit event
 
@@ -40,18 +64,28 @@ const inputs = document.querySelectorAll(
 
 modalForm.addEventListener("submit", function (e) {
 	e.preventDefault();
+	checkInputs();
+	console.log(validation);
 
-	//input values
-	const firstnameValue = document.getElementById("firstname").value.trim();
-	const lastnameValue = document.getElementById("lastname").value.trim();
-	const emailValue = document.getElementById("email").value.trim();
-	const birthdateValue = document.getElementById("birthdate").value.trim();
-	const quantityValue = document.getElementById("quantity").value.trim();
-	const checkbox1Value = document.getElementById("checkbox1").checked;
-	console.log(firstnameValue);
-	// inputs.forEach((input) => resetInput(input));
+	// if(valid) {
+	// 	this.submit()
+	// }
 });
 
+function checkInputs() {
+	inputs.forEach((input) => checkInput(input));
+	if (validation.filter(element => element == false).length == 0) {
+		showValidationMessage();
+	}
+}
+
+function showValidationMessage() {
+	modalForm.style.visibility = "hidden";
+	inputs.forEach((input) => resetInput(input));
+	validationMessage.style.visibility = "visible";
+}
+
+// reset input on focus, and check on blur
 inputs.forEach((input) => {
 	input.addEventListener("focus", () => resetInput(input));
 	input.addEventListener("blur", () => checkInput(input));
@@ -67,15 +101,109 @@ function resetInput(input) {
 }
 
 function checkInput(input) {
-	if (input.valid) {
-		input.parentElement.classList.add("success");
-		return true;
-	} else {
-		if (input.parentElement.classList.contains("success")) {
-			input.parentElement.classList.remove("success");
-		}
-		const small = input.parentElement.getElementsByTagName("small");
-		input.parentElement.classList.add("error");
-		return false;
+	//get the values from the inputs
+	resetInput(input)
+	const firstnameValue = firstname.value.trim();
+	const lastnameValue = lastname.value.trim();
+	const emailValue = email.value.trim();
+	const birthdateValue = birthdate.value.trim();
+	const quantityValue = quantity.value.trim();
+	const checkbox1Value = checkbox1.checked;
+	// set error or success with conditions
+	switch (input) {
+		case firstname:
+			if (firstnameValue === "" || firstnameValue.length < 2) {
+				setErrorFor(
+					firstname,
+					"Veuillez entrer 2 caractères ou plus pour le champ du prénom."
+				);
+				validation.splice(0, 1, false);
+			} else {
+				setSuccessFor(firstname);
+				validation.splice(0, 1, true);
+			}
+			break;
+		case lastname:
+			if (lastnameValue === "" || lastnameValue.length < 2) {
+				setErrorFor(
+					lastname,
+					"Veuillez entrer 2 caractères ou plus pour le champ du nom."
+				);
+				validation.splice(1, 1, false);
+			} else {
+				setSuccessFor(lastname);
+				validation.splice(1, 1, true);
+			}
+			break;
+		case email:
+			if (emailValue === "") {
+				setErrorFor(email, "Veuillez entrer une adresse mail.");
+				validation.splice(2, 1, false);
+			} else if (!isEmail(emailValue)) {
+				setErrorFor(email, "Veuillez entrer un email valide.");
+				validation.splice(2, 1, false);
+			} else {
+				setSuccessFor(email);
+				validation.splice(2, 1, true);
+			}
+			break;
+		case birthdate:
+			if (birthdateValue === "") {
+				setErrorFor(birthdate, "Veuillez entrer une date valide.");
+				validation.splice(3, 1, false);
+			} else {
+				setSuccessFor(birthdate);
+				validation.splice(3, 1, true);
+			}
+			break;
+		case quantity:
+			if (quantityValue === "") {
+				setErrorFor(quantity, "Veuillez répondre à la question.");
+				validation.splice(4, 1, false);
+			} else if (quantityValue < 0) {
+				setErrorFor(quantity, "Veuillez entrer une réponse valide.");
+				validation.splice(4, 1, false);
+			} else {
+				setSuccessFor(quantity);
+				validation.splice(4, 1, true);
+			}
+			break;
+		case checkbox1:
+			if (checkbox1Value == false) {
+				setErrorFor(
+					checkbox1,
+					"Vous devez vérifier que vous acceptez les termes et conditions."
+				);
+				validation.splice(5, 1, false);
+			} else {
+				resetInput(checkbox1)
+				validation.splice(5, 1, true);
+			}
+			break;
+
+		default:
+			alert("Une erreur est survenue, veuillez raffraichir la page");
+			break;
 	}
+}
+
+function setErrorFor(input, message) {
+	const formData = input.parentElement; //.form-data
+	const small = formData.querySelector("small");
+	// add error class
+	formData.classList.add("error");
+	// show error message inside small tag
+	small.innerText = message;
+}
+
+function setSuccessFor(input) {
+	const formData = input.parentElement;
+	// add success class
+	formData.classList.add("success");
+}
+
+function isEmail(email) {
+	return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+		email
+	);
 }
