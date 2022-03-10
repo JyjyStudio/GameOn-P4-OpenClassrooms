@@ -46,10 +46,12 @@ closeModalIcon.addEventListener("click", function () {
 });
 
 function launchNewForm() {
+	// reinitialise les champs
 	inputs.forEach((input) => {
 		resetInput(input);
 		input.value = "";
 	});
+	//cache le message de validation si il est visible
 	if (validationMessage.style.visibility == "visible") {
 		modalForm.style.visibility = "visible";
 		validationMessage.style.visibility = "hidden";
@@ -64,6 +66,7 @@ const inputs = document.querySelectorAll(
 
 modalForm.addEventListener("submit", function (e) {
 	e.preventDefault();
+	inputs.forEach((input) => resetInput(input));
 	checkInputs();
 	console.log(validation);
 
@@ -74,14 +77,14 @@ modalForm.addEventListener("submit", function (e) {
 
 function checkInputs() {
 	inputs.forEach((input) => checkInput(input));
-	if (validation.filter(element => element == false).length == 0) {
+	if (validation.filter(response => response == false).length == 0) {
 		showValidationMessage();
 	}
 }
 
 function showValidationMessage() {
-	modalForm.style.visibility = "hidden";
 	inputs.forEach((input) => resetInput(input));
+	modalForm.style.visibility = "hidden";
 	validationMessage.style.visibility = "visible";
 }
 
@@ -102,7 +105,6 @@ function resetInput(input) {
 
 function checkInput(input) {
 	//get the values from the inputs
-	resetInput(input)
 	const firstnameValue = firstname.value.trim();
 	const lastnameValue = lastname.value.trim();
 	const emailValue = email.value.trim();
@@ -118,7 +120,11 @@ function checkInput(input) {
 					"Veuillez entrer 2 caractères ou plus pour le champ du prénom."
 				);
 				validation.splice(0, 1, false);
-			} else {
+			} else if (!isName(firstnameValue)) {
+				setErrorFor(firstname, "veuillez entrer un prénom valide.")
+				validation.splice(0, 1, false);
+			} 
+			else {
 				setSuccessFor(firstname);
 				validation.splice(0, 1, true);
 			}
@@ -130,7 +136,11 @@ function checkInput(input) {
 					"Veuillez entrer 2 caractères ou plus pour le champ du nom."
 				);
 				validation.splice(1, 1, false);
-			} else {
+			} else if (!isName(lastnameValue)) {
+				setErrorFor(lastname, "veuillez entrer un nom valide.")
+				validation.splice(1, 1, false);
+			} 
+			else {
 				setSuccessFor(lastname);
 				validation.splice(1, 1, true);
 			}
@@ -149,11 +159,10 @@ function checkInput(input) {
 			break;
 		case birthdate:
 			if (birthdateValue === "") {
-				setErrorFor(birthdate, "Veuillez entrer une date valide.");
+				setErrorFor(birthdate, "Veuillez entrer une date.");
 				validation.splice(3, 1, false);
 			} else {
-				setSuccessFor(birthdate);
-				validation.splice(3, 1, true);
+				compareDate(birthdate, birthdateValue);
 			}
 			break;
 		case quantity:
@@ -203,7 +212,33 @@ function setSuccessFor(input) {
 }
 
 function isEmail(email) {
-	return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-		email
-	);
+	return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 }
+
+function isName(name) {
+	return /^[a-zA-Z \-éèëê]+$/.test(name)
+}
+
+const compareDate = (input, inputValue) => {
+	let dateDuJour = new Date();
+	let dateValue = new Date(inputValue);
+
+	// si la date naissance est supérieur à la date du jour :
+	if(dateValue>dateDuJour) {
+		console.log('date supérieur a la date du jour');
+		setErrorFor(input, "La date supérieur a la date du jour");
+		validation.splice(3, 1, false);
+	}
+	// si la date de naissance est supérieure à 110 ans
+	else if(dateValue < -1824422400000) {
+		console.log('+ que 110 ans');
+		setErrorFor(input, "êtes vous sur ?");
+		validation.splice(3, 1, false);
+	} 
+	else {
+		setSuccessFor(input);
+		validation.splice(3, 1, true);
+	}
+}
+
+// console.log(new Date(1912,2,10).getTime()); // -1824422400000 = 110 ans
