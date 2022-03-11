@@ -530,6 +530,9 @@ footer {
 }
 
 @media screen and (max-width: 540px) {
+	input[type="date"] {
+		-webkit-min-logical-width: calc(100% - 16px);
+	}
 	.header-logo img {
 		padding: 20px 0 0 20px;
 	}
