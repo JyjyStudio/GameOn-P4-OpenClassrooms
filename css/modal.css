@@ -537,7 +537,10 @@ footer {
 		-webkit-min-logical-width: calc(100% - 16px);
 		padding: 8px;
 	}
-	/* .text-control { font-size: 100%; }evite le zoom on focus */
+	.text-control { font-size: 100%; } /*evite le zoom on focus */
+	.content {
+		height: 100%;
+	}
 
 	.header-logo img {
 		padding: 20px 0 0 20px;
