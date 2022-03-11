@@ -7,6 +7,7 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const closeModalIcon = document.querySelector(".close");
 const modalForm = document.getElementById("modal-form");
+const modalBody = document.querySelector(".modal-body");
 const validationMessage = document.getElementById("validation-message");
 
 // inputs
@@ -42,6 +43,8 @@ function launchModal() {
 // close modal event
 closeModalIcon.addEventListener("click", function () {
 	modalbg.style.display = "none";
+	modalBody.style.padding = '0 8% 15px';
+	
 	launchNewForm();
 });
 
@@ -86,6 +89,7 @@ function showValidationMessage() {
 	inputs.forEach((input) => resetInput(input));
 	modalForm.style.visibility = "hidden";
 	validationMessage.style.visibility = "visible";
+	document.querySelector('.modal-body').style.padding = 0;
 }
 
 // reset input on focus, and check on blur
