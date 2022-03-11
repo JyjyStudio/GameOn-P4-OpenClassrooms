@@ -467,6 +467,9 @@ footer {
 }
 
 @media screen and (max-width: 810px) {
+	.main-navbar {/*fix width menu on small screens*/
+		width: 100%;
+	}
 	.hero-section {
 		display: block;
 		box-shadow: unset;
