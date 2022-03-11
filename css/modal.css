@@ -283,8 +283,12 @@ label {
 .form-data i {
 	position: absolute;
 	right: 10px;
-	top: 37px;
+	bottom: 50%;
+    transform: translateY(50%);
 	display: none;
+}
+.center-icon {
+	position: relative;
 }
 
 .success i.fa-circle-check,
@@ -518,6 +522,9 @@ footer {
 }
 
 @media screen and (max-width: 540px) {
+	.header-logo img {
+		padding: 20px 0 0 20px;
+	}
 	.topnav a {
 		display: none;
 	}
@@ -525,5 +532,8 @@ footer {
 		float: right;
 		display: block;
 		margin-top: -15px;
+	}
+	.hero-content {
+		min-width: 100%;
 	}
 }
