@@ -230,7 +230,7 @@ const compareDate = (input, inputValue) => {
 	// si la date naissance est supérieur à la date du jour :
 	if(dateValue>dateDuJour) {
 		console.log('date supérieur a la date du jour');
-		setErrorFor(input, "La date supérieur a la date du jour");
+		setErrorFor(input, "La date est supérieur à la date du jour");
 		validation.splice(3, 1, false);
 	}
 	// si la date de naissance est supérieure à 110 ans
