@@ -424,6 +424,7 @@ input[type="number"] {
 	top: 50%;
 	text-align: center;
 	visibility: hidden;
+	width: 100%;
 }
 /* Footer */
 
