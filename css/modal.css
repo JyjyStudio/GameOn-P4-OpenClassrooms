@@ -537,9 +537,9 @@ footer {
 		-webkit-min-logical-width: calc(100% - 16px);
 		padding: 8px;
 	}
-	.text-control { font-size: 100%; } /*evite le zoom on focus */
+	.text-control { font-size: 80%; } /*evite le zoom on focus */
 	.content {
-		height: 100%;
+		height: 80%;
 	}
 
 	.header-logo img {
