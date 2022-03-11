@@ -530,10 +530,11 @@ footer {
 }
 
 @media screen and (max-width: 540px) {
-	input[type="date"] {
+	input[type="date"] { /*élargir width 100% sur iphone*/
 		-webkit-min-logical-width: calc(100% - 16px);
+		padding: 8px;
 	}
-	input, select { font-size: 100%; }
+	input, select { font-size: 100%; }/*evite le zoom on focus*/
 	.header-logo img {
 		padding: 20px 0 0 20px;
 	}
