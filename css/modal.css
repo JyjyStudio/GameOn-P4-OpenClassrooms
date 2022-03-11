@@ -539,7 +539,9 @@ footer {
 	}
 	.text-control { font-size: 80%; } /*evite le zoom on focus */
 	.content {
+		width: 95%;
 		height: auto;
+		margin: 0 auto;
 	}
 
 	.header-logo img {
