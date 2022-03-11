@@ -547,13 +547,18 @@ footer {
 	.header-logo img {
 		padding: 20px 0 0 20px;
 	}
+	.topnav {
+		margin: 0;
+	}
 	.topnav a {
 		display: none;
 	}
 	.topnav a.nav-icon {
-		float: right;
-		display: block;
-		margin-top: -15px;
+		/* float: right;
+		display: block; */
+		position: absolute;
+		right: 0;
+		top: 0;
 	}
 	.hero-content {
 		min-width: 100%;
