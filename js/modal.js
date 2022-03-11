@@ -26,7 +26,7 @@ const validFormResponses = [true, true, true, true, true, true]
 navIcon.addEventListener("click", editNav);
 function editNav() {
 	if (topNav.className === "topnav") {
-		topNav.className += "responsive";
+		topNav.className += " responsive";
 	} else {
 		topNav.className = "topnav";
 	}
