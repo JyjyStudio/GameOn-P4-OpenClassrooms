@@ -535,7 +535,7 @@ footer {
 @media screen and (max-width: 540px) {
 	input[type="date"] { /*élargir width 100% sur iphone*/
 		-webkit-min-logical-width: calc(100% - 16px);
-		padding: 8px;
+		padding: 18px;
 	}
 	.text-control { font-size: 80%; } /*evite le zoom on focus */
 	.content {
