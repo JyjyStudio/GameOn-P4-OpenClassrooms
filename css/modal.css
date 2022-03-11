@@ -539,7 +539,6 @@ footer {
 	.text-control { font-size: 80%; } /*evite le zoom on focus */
 	.content {
 		max-width: 95%;
-		max-height: 90%;
 		height: auto;
 		margin: 4% auto 0;
 	}
