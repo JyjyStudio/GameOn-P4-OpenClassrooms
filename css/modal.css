@@ -530,9 +530,7 @@ footer {
 		margin: 10% auto 0;
 		height: 80%;
 	}
-}
-
-@media screen and (max-width: 540px) {
+	/*reunion de 2 media queries */
 	input[type="date"] { /*élargir width 100% sur iphone*/
 		-webkit-min-logical-width: calc(100% - 16px);
 		padding: 18px;
