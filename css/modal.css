@@ -533,6 +533,7 @@ footer {
 	input[type="date"] {
 		-webkit-min-logical-width: calc(100% - 16px);
 	}
+	input, select { font-size: 100%; }
 	.header-logo img {
 		padding: 20px 0 0 20px;
 	}
