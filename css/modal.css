@@ -221,7 +221,7 @@ main {
 
 /* Contenu de la modale */
 .content {
-	margin: 2% auto;
+	margin: 10px auto;
 	width: 100%;
 	max-width: 500px;
 	animation-name: modalopen;
@@ -459,7 +459,14 @@ footer {
 
 /* Media Queries */
 
-@media screen and (max-width: 800px) {
+@media screen and (min-width : 1080px) { /*fix hauteur page*/
+	.hero-section {
+		height: 77vh;
+		min-height: inherit;
+	}
+}
+
+@media screen and (max-width: 810px) {
 	.hero-section {
 		display: block;
 		box-shadow: unset;
@@ -496,9 +503,6 @@ footer {
 		margin-top: 50px;
 		text-align: center;
 	}
-}
-
-@media screen and (max-width: 768px) {
 	.topnav.responsive {
 		position: relative;
 	}
@@ -518,6 +522,10 @@ footer {
 	.topnav a.nav-icon {
 		float: right;
 		display: block;
+	}
+	.content {
+		margin: 10% auto 0;
+		height: 80%;
 	}
 }
 
