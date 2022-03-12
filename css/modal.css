@@ -19,7 +19,7 @@ body {
 	flex-direction: column;
 	font-family: var(--font-default);
 	font-size: 18px;
-	max-width: 1300px;
+	max-width: 1150px;
 	margin: 0 auto;
 }
 
@@ -95,7 +95,7 @@ main {
 	margin-bottom: 10px;
 }
 .hero-content {
-	padding: 51px 67px;
+	padding: 20px 70px;
 	grid-column: span 4;
 	background: #232323;
 	color: #fff;
@@ -117,7 +117,7 @@ main {
 	z-index: 1;
 }
 .hero-headline {
-	font-size: 6rem;
+	font-size: 5.5rem;
 	font-weight: normal;
 	white-space: nowrap;
 }
@@ -462,18 +462,17 @@ footer {
 
 /* Media Queries */
 
-@media screen and (min-width : 1080px) { /*fix hauteur page*/
+@media screen and (min-width : 1060px) { /*fixe la hauteur de la page*/
 	.hero-section {
-		height: 85vh;
+		height: 75vh;
 		min-height: inherit;
 	}
 	.hero-content {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-	}
+	} 
 }
-@media screen and (max-width: 1080px) {
+@media screen and (max-width:900px) {
 	.main-navbar {/*fix width menu on small screens*/
 		width: 100%;
 	}
@@ -533,21 +532,14 @@ footer {
 		float: right;
 		display: block;
 	}
-	.content {
-		margin: 10% auto 0;
-		height: 80%;
-	}
 	/*reunion de 2 media queries */
 	input[type="date"] { /*élargir width 100% sur iphone*/
 		-webkit-min-logical-width: calc(100% - 16px);
 		padding: 18px;
 	}
-	.text-control { font-size: 80%; } /*evite le zoom on focus */
-	.content {
-		max-width: 95%;
-		height: auto;
-		margin: 4% auto 0;
-	}
+	.text-control { 
+		font-size: 80%; /*evite le zoom on focus */
+	} 
 
 	.header-logo img {
 		padding: 20px 0 0 20px;
@@ -567,5 +559,13 @@ footer {
 	}
 	.hero-content {
 		min-width: 100%;
+	}
+}
+
+@media screen and (max-width:  580px) { /* Gestion de la largeur du formulaire sur petit ecrans */
+	.content {
+		max-width: 95%;
+		height: auto;
+		margin: 4% auto 0;
 	}
 }
