@@ -35,7 +35,7 @@ img {
 /* Menu de Navigation */
 .topnav {
 	overflow: hidden;
-	margin: 1.5%;
+	margin: 2vh 2vw;
 }
 .topnav a {
 	float: left;
@@ -79,7 +79,7 @@ main {
 	padding-top: 0.5vw;
 	padding-left: 2vw;
 	padding-right: 2vw;
-	margin: 1px 20px 15px;
+	margin-bottom: 15px;
 	border-radius: 2rem;
 	text-align: justify;
 }
@@ -476,6 +476,9 @@ footer {
 	.main-navbar {/*fix width menu on small screens*/
 		width: 100%;
 	}
+	main {
+		margin-bottom: 0;
+	}
 	.hero-section {
 		display: block;
 		box-shadow: unset;
@@ -492,13 +495,16 @@ footer {
 		display: none;
 	}
 	.hero-headline {
-		font-size: 4.5rem;
+		font-size: 3.5rem;
 		white-space: normal;
+		margin-top: 20px;
 	}
 	.hero-text {
 		width: unset;
 		font-size: 1.5rem;
+		margin-top: 45px;
 	}
+	
 	.hero-img img {
 		border-radius: 10px;
 		margin-top: 40px;
