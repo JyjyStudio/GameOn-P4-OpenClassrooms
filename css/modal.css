@@ -135,6 +135,7 @@ main {
 	height: 100%;
 	display: block;
 	padding: 0;
+	object-fit: cover;
 }
 
 /* btn pour ouvrir modal */
@@ -463,12 +464,16 @@ footer {
 
 @media screen and (min-width : 1080px) { /*fix hauteur page*/
 	.hero-section {
-		height: 77vh;
+		height: 85vh;
 		min-height: inherit;
 	}
+	.hero-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
 }
-
-@media screen and (max-width: 810px) {
+@media screen and (max-width: 1080px) {
 	.main-navbar {/*fix width menu on small screens*/
 		width: 100%;
 	}
