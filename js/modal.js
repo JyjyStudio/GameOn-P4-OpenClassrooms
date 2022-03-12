@@ -9,6 +9,7 @@ const closeModalIcon = document.querySelector(".close");
 const modalForm = document.getElementById("modal-form");
 const modalBody = document.querySelector(".modal-body");
 const validationMessage = document.getElementById("validation-message");
+const closeBtn = document.getElementById("btn-close");
 
 // inputs
 const firstname = document.getElementById("firstname");
@@ -42,13 +43,18 @@ function launchModal() {
 
 // close modal event
 closeModalIcon.addEventListener("click", function () {
-	modalbg.style.display = "none";
-	modalBody.style.padding = '0 8% 15px';
-	
+	launchNewForm();
+});
+
+// close modal event after submit
+closeBtn.addEventListener("click", function () {
 	launchNewForm();
 });
 
 function launchNewForm() {
+	//
+	modalbg.style.display = "none";
+	modalBody.style.padding = '0 8% 15px';
 	// reinitialise les champs
 	inputs.forEach((input) => {
 		resetInput(input);
@@ -58,6 +64,7 @@ function launchNewForm() {
 	if (validationMessage.style.visibility == "visible") {
 		modalForm.style.visibility = "visible";
 		validationMessage.style.visibility = "hidden";
+		closeBtn.style.visibility = "hidden";
 	}
 }
 
@@ -89,7 +96,8 @@ function showValidationMessage() {
 	inputs.forEach((input) => resetInput(input));
 	modalForm.style.visibility = "hidden";
 	validationMessage.style.visibility = "visible";
-	document.querySelector('.modal-body').style.padding = 0;
+	modalBody.style.padding = 0;
+	closeBtn.style.visibility = "visible";
 }
 
 // reset input on focus, and check on blur

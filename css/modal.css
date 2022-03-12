@@ -245,7 +245,8 @@ main {
 .button {
 	background: #fe142f;
 	margin-top: 0.5em;
-	padding: 1em;
+	padding: 10px 50px;
+	border:none;
 	color: #fff;
 	border-radius: 15px;
 	cursor: pointer;
@@ -426,6 +427,14 @@ input[type="number"] {
 	text-align: center;
 	visibility: hidden;
 	width: 100%;
+}
+#btn-close {
+	visibility: hidden;
+    position: absolute;
+    bottom: 5%;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
 }
 /* Footer */
 
