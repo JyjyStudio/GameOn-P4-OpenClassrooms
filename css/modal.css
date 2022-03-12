@@ -325,8 +325,8 @@ label {
 	visibility: visible;
 }
 .checkbox small {
-	top: 25px;
-	left: 40px;
+	bottom: -2px;
+	left: 0;
 }
 
 /* disposition des inputs et labels */
@@ -578,5 +578,19 @@ footer {
 		max-width: 95%;
 		height: auto;
 		margin: 4% auto 0;
+	}
+	#quantity-container,
+	#location-container {
+		padding-top: 5px;
+	}
+	#checkbox1-container {
+		padding-bottom: 25px;
+	}
+	#checkbox1-container small {
+		bottom:  7px;
+	}
+	#firstname-container small, 
+	#checkbox1-container small {
+		font-size: 12px;
 	}
 }
