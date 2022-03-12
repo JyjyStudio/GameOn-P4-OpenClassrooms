@@ -50,8 +50,7 @@ img {
 }
 
 .topnav a:hover {
-	background-color: #ff0000;
-	color: #ffffff;
+	color: #000;
 	border-radius: 15px;
 }
 
@@ -550,7 +549,6 @@ footer {
 	/*reunion de 2 media queries */
 	input[type="date"] { /*élargir width 100% sur iphone*/
 		-webkit-min-logical-width: calc(100% - 16px);
-		padding: 18px;
 	}
 	.text-control { 
 		font-size: 80%; /*evite le zoom on focus */
@@ -566,8 +564,6 @@ footer {
 		display: none;
 	}
 	.topnav a.nav-icon {
-		/* float: right;
-		display: block; */
 		position: absolute;
 		right: 0;
 		top: 0;
