@@ -4,6 +4,7 @@
 const topNav = document.getElementById("myTopnav");
 const navIcon = document.querySelector(".nav-icon");
 const modalbg = document.querySelector(".bground");
+const content = document.querySelector('.content');
 const modalBtn = document.querySelectorAll(".modal-btn");
 const closeModalIcon = document.querySelector(".close");
 const modalForm = document.getElementById("modal-form");
@@ -17,11 +18,12 @@ const lastname = document.getElementById("lastname");
 const email = document.getElementById("email");
 const birthdate = document.getElementById("birthdate");
 const quantity = document.getElementById("quantity");
+const locations = document.querySelectorAll("input[type=radio]")
 const checkbox1 = document.getElementById("checkbox1");
+// console.log(locations);
 
 // verif validation
 let validation = [];
-const validFormResponses = [true, true, true, true, true, true] 
 
 // Menu mobile
 navIcon.addEventListener("click", editNav);
@@ -39,6 +41,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
 	modalbg.style.display = "block";
+	window.scrollTo(0, 0);
 }
 
 // close modal event
@@ -60,6 +63,12 @@ function launchNewForm() {
 		resetInput(input);
 		input.value = "";
 	});
+	//enlever message erreur
+	locations.forEach(location => {
+		resetInput(location)
+	})
+	// remettre la croix sur les cgv
+	checkbox1.checked = 'checked';
 	//cache le message de validation si il est visible
 	if (validationMessage.style.visibility == "visible") {
 		modalForm.style.visibility = "visible";
@@ -76,13 +85,11 @@ const inputs = document.querySelectorAll(
 
 modalForm.addEventListener("submit", function (e) {
 	e.preventDefault();
-	inputs.forEach((input) => resetInput(input));
 	checkInputs();
-	console.log(validation);
+	checkLocation();
+	// console.log(validation);
+	console.log({validRadio, validation});
 
-	// if(valid) {
-	// 	this.submit()
-	// }
 });
 
 function checkInputs() {
@@ -100,11 +107,25 @@ function showValidationMessage() {
 	closeBtn.style.visibility = "visible";
 }
 
-// reset input on focus, and check on blur
+// EVENT LISTENERS //
+
+// reset input on focus, check on blur and on submit
 inputs.forEach((input) => {
+	modalForm.addEventListener("submit", () => {
+		resetInput(input)
+		checkInput(input)
+	});
 	input.addEventListener("focus", () => resetInput(input));
 	input.addEventListener("blur", () => checkInput(input));
 });
+
+//check if checkbox is checked on click
+checkbox1.addEventListener('click', () => checkInput(checkbox1)) /// a revoir 
+//check if location is checked on click
+locations.forEach(location => {
+	// location.addEventListener('click', () => checkLocation())
+	location.addEventListener('click', () => resetInput(location))	
+})
 
 function resetInput(input) {
 	if (input.parentElement.classList.contains("error")) {
@@ -177,6 +198,9 @@ function checkInput(input) {
 				compareDate(birthdate, birthdateValue);
 			}
 			break;
+		case location : 
+			checkLocation();
+			break;
 		case quantity:
 			if (quantityValue === "") {
 				setErrorFor(quantity, "Veuillez répondre à la question.");
@@ -191,22 +215,50 @@ function checkInput(input) {
 			break;
 		case checkbox1:
 			if (checkbox1Value == false) {
+				resetInput(checkbox1)
 				setErrorFor(
 					checkbox1,
 					"Vous devez vérifier que vous acceptez les termes et conditions."
 				);
-				validation.splice(5, 1, false);
+				validation.splice(6, 1, false);
 			} else {
 				resetInput(checkbox1)
-				validation.splice(5, 1, true);
+				setSuccessFor(checkbox1)
+				validation.splice(6, 1, true);
 			}
 			break;
 
 		default:
-			alert("Une erreur est survenue, veuillez raffraichir la page");
+			console.log("Une erreur est survenue, veuillez raffraichir la page");
 			break;
 	}
 }
+
+
+//Gestion des inputs radio 
+let validRadio=[];
+const checkLocation = () => {
+	locations.forEach(location => {
+		// console.log(location.checked);
+		let locationValue = location.checked;
+		if (locationValue == false) {
+			validRadio.push(false);
+		} else {
+			validRadio.push(true)
+		}
+		if (validRadio.filter(response => response == true).length > 0) {
+			validation.splice(5, 1, true);
+			resetInput(location)
+		} else {
+			setErrorFor(
+				location,
+				"Vous devez vérifier spécifier un lieu."
+			);
+			validation.splice(5, 1, false);
+		}
+	})
+
+} 
 
 function setErrorFor(input, message) {
 	const formData = input.parentElement; //.form-data
@@ -254,3 +306,7 @@ const compareDate = (input, inputValue) => {
 }
 
 // console.log(new Date(1912,2,10).getTime()); // -1824422400000 = 110 ans
+
+// année copyright
+const year = new Date().getFullYear();
+document.getElementById("year").innerText = year;
