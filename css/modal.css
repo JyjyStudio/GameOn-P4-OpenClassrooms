@@ -428,7 +428,10 @@ input[type="number"] {
 	top: 50%;
 	text-align: center;
 	visibility: hidden;
-	width: 100%;
+	width: 90%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
 }
 #btn-close {
 	visibility: hidden;
