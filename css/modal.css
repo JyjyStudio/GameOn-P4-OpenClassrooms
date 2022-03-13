@@ -589,6 +589,9 @@ footer {
 		right: 0;
 		margin: 10px auto;
 	}
+	#firstname-container {
+		margin-top: 15px;
+	}
 	#quantity-container,
 	#location-container {
 		padding-top: 5px;
