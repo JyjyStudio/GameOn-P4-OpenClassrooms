@@ -1,6 +1,5 @@
 "use strict";
 // DOM Elements
-
 const topNav = document.getElementById("myTopnav");
 const navIcon = document.querySelector(".nav-icon");
 const modalbg = document.querySelector(".bground");
@@ -13,6 +12,7 @@ const validationMessage = document.getElementById("validation-message");
 const closeBtn = document.getElementById("btn-close");
 
 // inputs
+const inputs = document.querySelectorAll("#firstname, #lastname, #email, #birthdate, #quantity");
 const firstname = document.getElementById("firstname");
 const lastname = document.getElementById("lastname");
 const email = document.getElementById("email");
@@ -20,10 +20,9 @@ const birthdate = document.getElementById("birthdate");
 const quantity = document.getElementById("quantity");
 const locations = document.querySelectorAll("input[type=radio]");
 const checkbox1 = document.getElementById("checkbox1");
-// console.log(locations);
 
 // verif validation
-let validation = [];
+let isValid = [];
 
 // Menu mobile
 navIcon.addEventListener("click", editNav);
@@ -66,7 +65,6 @@ function launchNewForm() {
 		resetInput(input);
 		input.value = "";
 	});
-	//enleve les messages d'erreur
 	locations.forEach((location) => {
 		resetInput(location);
 	});
@@ -86,44 +84,54 @@ function launchNewForm() {
 
 // Form on submit event
 
-const inputs = document.querySelectorAll(
-	"#firstname, #lastname, #email, #birthdate, #quantity, #checkbox1"
-);
-
 modalForm.addEventListener("submit", function (e) {
 	e.preventDefault();
 	checkInputs();
 	checkLocation();
-	if (validation.filter(response => response == false).length == 0) {
+	checkCgv();
+	if (isValid.filter(response => response == false).length == 0) {
 		showValidationMessage();
 	}
-	// console.log(validation);
-	console.log({ validRadio, validation });
+
 });
 
 function checkInputs() {
 	inputs.forEach(input => checkInput(input));
 }
 
-let validRadio = [];
 const checkLocation = () => {
-	locations.forEach((location) => {
-		// console.log(location.checked);
+	let validRadio = [];
+	locations.forEach( location => {
 		let locationValue = location.checked;
 		if (locationValue == false) {
 			validRadio.push(false);
 		} else {
 			validRadio.push(true);
 		}
-		if (validRadio.filter((response) => response == true).length > 0) {
-			validation.splice(5, 1, true);
-			resetInput(location);
+		if (validRadio.filter( response => response == true).length > 0) {
+			isValid.splice(5, 1, true);
+			setSuccessFor(location);
 		} else {
 			setErrorFor(location, "Vous devez vérifier spécifier un lieu.");
-			validation.splice(5, 1, false);
+			isValid.splice(5, 1, false);
 		}
 	});
+	console.log({ validRadio, isValid });
 };
+
+const checkCgv = () => {
+	const checkbox1Value = checkbox1.checked;
+	if (checkbox1Value == false) {
+		setErrorFor(
+			checkbox1,
+			"Vous devez vérifier que vous acceptez les termes et conditions."
+		);
+		isValid.splice(6, 1, false);
+	} else {
+		setSuccessFor(checkbox1);
+		isValid.splice(6, 1, true);
+	}
+}
 
 function showValidationMessage() {
 	inputs.forEach((input) => resetInput(input));
@@ -141,7 +149,7 @@ inputs.forEach((input) => {
 });
 
 //check if checkbox is checked on click
-checkbox1.addEventListener("click", () => checkInput(checkbox1)); /// a revoir
+checkbox1.addEventListener("click", () => checkCgv(checkbox1));
 //check if location is checked on click
 locations.forEach((location) => {
 	// location.addEventListener('click', () => checkLocation())
@@ -158,15 +166,12 @@ function resetInput(input) {
 }
 
 function checkInput(input) {
-	// remet l'input à son état initial
-	resetInput(input);
 	//get the values from the inputs
 	const firstnameValue = firstname.value.trim();
 	const lastnameValue = lastname.value.trim();
 	const emailValue = email.value.trim();
 	const birthdateValue = birthdate.value.trim();
 	const quantityValue = quantity.value.trim();
-	const checkbox1Value = checkbox1.checked;
 	// set error or success with conditions
 	switch (input) {
 		case firstname:
@@ -175,13 +180,13 @@ function checkInput(input) {
 					firstname,
 					"Veuillez entrer 2 caractères ou plus pour le champ du prénom."
 				);
-				validation.splice(0, 1, false);
+				isValid.splice(0, 1, false);
 			} else if (!isName(firstnameValue)) {
 				setErrorFor(firstname, "veuillez entrer un prénom valide.");
-				validation.splice(0, 1, false);
+				isValid.splice(0, 1, false);
 			} else {
 				setSuccessFor(firstname);
-				validation.splice(0, 1, true);
+				isValid.splice(0, 1, true);
 			}
 			break;
 		case lastname:
@@ -190,31 +195,31 @@ function checkInput(input) {
 					lastname,
 					"Veuillez entrer 2 caractères ou plus pour le champ du nom."
 				);
-				validation.splice(1, 1, false);
+				isValid.splice(1, 1, false);
 			} else if (!isName(lastnameValue)) {
 				setErrorFor(lastname, "veuillez entrer un nom valide.");
-				validation.splice(1, 1, false);
+				isValid.splice(1, 1, false);
 			} else {
 				setSuccessFor(lastname);
-				validation.splice(1, 1, true);
+				isValid.splice(1, 1, true);
 			}
 			break;
 		case email:
 			if (emailValue === "") {
 				setErrorFor(email, "Veuillez entrer une adresse mail.");
-				validation.splice(2, 1, false);
+				isValid.splice(2, 1, false);
 			} else if (!isEmail(emailValue)) {
 				setErrorFor(email, "Veuillez entrer un email valide.");
-				validation.splice(2, 1, false);
+				isValid.splice(2, 1, false);
 			} else {
 				setSuccessFor(email);
-				validation.splice(2, 1, true);
+				isValid.splice(2, 1, true);
 			}
 			break;
 		case birthdate:
 			if (birthdateValue === "") {
 				setErrorFor(birthdate, "Veuillez entrer une date.");
-				validation.splice(3, 1, false);
+				isValid.splice(3, 1, false);
 			} else {
 				compareDate(birthdate, birthdateValue);
 			}
@@ -225,38 +230,21 @@ function checkInput(input) {
 		case quantity:
 			if (quantityValue === "") {
 				setErrorFor(quantity, "Veuillez répondre à la question.");
-				validation.splice(4, 1, false);
+				isValid.splice(4, 1, false);
 			} else if (quantityValue < 0) {
 				setErrorFor(quantity, "Veuillez entrer une réponse valide.");
-				validation.splice(4, 1, false);
+				isValid.splice(4, 1, false);
 			} else {
 				setSuccessFor(quantity);
-				validation.splice(4, 1, true);
+				isValid.splice(4, 1, true);
 			}
-			break;
-		case checkbox1:
-			if (checkbox1Value == false) {
-				resetInput(checkbox1);
-				setErrorFor(
-					checkbox1,
-					"Vous devez vérifier que vous acceptez les termes et conditions."
-				);
-				validation.splice(6, 1, false);
-			} else {
-				resetInput(checkbox1);
-				setSuccessFor(checkbox1);
-				validation.splice(6, 1, true);
-			}
-			break;
-
-		default:
-			console.log("Une erreur est survenue, veuillez raffraichir la page");
 			break;
 	}
 }
 
 function setErrorFor(input, message) {
-	const formData = input.parentElement; //.form-data
+	resetInput(input);
+	const formData = input.parentElement; 
 	const small = formData.querySelector("small");
 	// add error class
 	formData.classList.add("error");
@@ -265,6 +253,7 @@ function setErrorFor(input, message) {
 }
 
 function setSuccessFor(input) {
+	resetInput(input);
 	const formData = input.parentElement;
 	// add success class
 	formData.classList.add("success");
@@ -286,16 +275,16 @@ const compareDate = (input, inputValue) => {
 	if (dateValue > dateDuJour) {
 		console.log("date supérieur a la date du jour");
 		setErrorFor(input, "La date est supérieur à la date du jour");
-		validation.splice(3, 1, false);
+		isValid.splice(3, 1, false);
 	}
 	// si la date de naissance est supérieure à 110 ans
 	else if (dateValue < -1824422400000) {
 		console.log("+ que 110 ans");
 		setErrorFor(input, "êtes vous sur ?");
-		validation.splice(3, 1, false);
+		isValid.splice(3, 1, false);
 	} else {
 		setSuccessFor(input);
-		validation.splice(3, 1, true);
+		isValid.splice(3, 1, true);
 	}
 };
 
