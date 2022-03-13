@@ -10,6 +10,9 @@
 	margin: 0;
 	padding: 0;
 }
+html {
+	scroll-behavior: smooth;
+}
 
 /* Landing Page */
 
@@ -574,10 +577,17 @@ footer {
 }
 
 @media screen and (max-width:  580px) { /* Gestion de la largeur du formulaire sur petit ecrans */
+	.bground {
+		background : inherit;
+	}
 	.content {
 		max-width: 95%;
 		height: auto;
-		margin: 4% auto 0;
+		position: absolute;
+		top: 70px;
+		left: 0;
+		right: 0;
+		margin: 10px auto;
 	}
 	#quantity-container,
 	#location-container {
@@ -589,8 +599,7 @@ footer {
 	#checkbox1-container small {
 		bottom:  7px;
 	}
-	#firstname-container small, 
-	#checkbox1-container small {
-		font-size: 12px;
+	.error small {
+		font-size: 3.2vw;
 	}
 }
