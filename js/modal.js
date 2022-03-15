@@ -189,7 +189,7 @@ function setSuccessFor(input) {
 }
 
 function isName(name) {
-	return (/^[a-zA-Z \-éèëê]+$/).test(name);
+	return (/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/).test(name);
 }
 
 function isEmail(email) {
