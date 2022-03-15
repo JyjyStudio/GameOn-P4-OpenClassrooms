@@ -87,7 +87,6 @@ modalForm.addEventListener("submit", function (e) {
 	if (isValid.filter(response => response == false).length == 0) {
 		showValidationMessage();
 	}
-
 });
 
 function checkInputs() {
@@ -153,9 +152,6 @@ function checkInput(input) {
 				compareDate(birthdate, birthdateValue);
 			}
 			break;
-		case location:
-			checkLocation();
-			break;
 		case quantity:
 			if (quantityValue === "") {
 				setErrorFor(quantity, "Veuillez répondre à la question.");
@@ -168,23 +164,26 @@ function checkInput(input) {
 				isValid.splice(4, 1, true);
 			}
 			break;
+		case location:
+			checkLocation();
+			break;
 	}
 }
 
 function setErrorFor(input, message) {
 	resetInput(input);
-	const formData = input.parentElement; 
-	const small = formData.querySelector("small");
 	// add error class
+	const formData = input.parentElement; 
 	formData.classList.add("error");
 	// show error message inside small tag
+	const small = formData.querySelector("small");
 	small.innerText = message;
 }
 
 function setSuccessFor(input) {
 	resetInput(input);
-	const formData = input.parentElement;
 	// add success class
+	const formData = input.parentElement;
 	formData.classList.add("success");
 }
 
@@ -207,14 +206,14 @@ const compareDate = (input, inputValue) => {
 	}
 	// si la date de naissance est supérieure à 110 ans
 	else if (dateValue < -1824422400000) {
-		setErrorFor(input, "êtes vous sur ?");
+		setErrorFor(input, "êtes-vous sûr ?");
 		isValid.splice(3, 1, false);
 	} else {
 		setSuccessFor(input);
 		isValid.splice(3, 1, true);
 	}
 };
-// console.log(new Date(1912,2,10).getTime()); // -1824422400000 = 110 ans
+// console.log(new Date(1912,2,15).getTime()); // -1824422400000 = 110 ans
 
 const checkLocation = () => {
 	let validRadio = [];
