@@ -49,12 +49,6 @@ closeModalIcon.addEventListener("click", function () {
 	launchNewForm();
 });
 
-// close modal event after submit
-closeBtn.addEventListener("click", function () {
-	closeForm();
-	launchNewForm();
-});
-
 function closeForm() {
 	modalbg.style.display = "none";
 }
@@ -66,21 +60,22 @@ function launchNewForm() {
 		input.value = "";
 	});
 	locations.forEach((location) => {
+		// efface le message d'erreur si il y en a un 
 		resetInput(location);
+		// //enleve l'attribut checked aux villes
+		location.checked = false;
 	});
+	// remet l'attribut checked sur les cgv
+	checkbox1.checked = true;
+	resetInput(checkbox1);
 	//cache le message de validation si il est visible
 	if (validationMessage.style.visibility == "visible") {
 		modalForm.style.visibility = "visible";
 		validationMessage.style.visibility = "hidden";
 		closeBtn.style.visibility = "hidden";
 	}
-	// remet l'attribut checked sur les cgv
-	checkbox1.checked = true;
-	//enleve l'attribut checked aux villes
-	locations.forEach((location) => {
-		location.checked = false;
-	});
 }
+
 
 // Form on submit event
 
@@ -97,72 +92,6 @@ modalForm.addEventListener("submit", function (e) {
 
 function checkInputs() {
 	inputs.forEach(input => checkInput(input));
-}
-
-const checkLocation = () => {
-	let validRadio = [];
-	locations.forEach( location => {
-		let locationValue = location.checked;
-		if (locationValue == false) {
-			validRadio.push(false);
-		} else {
-			validRadio.push(true);
-		}
-		if (validRadio.filter( response => response == true).length > 0) {
-			isValid.splice(5, 1, true);
-			setSuccessFor(location);
-		} else {
-			setErrorFor(location, "Vous devez vérifier spécifier un lieu.");
-			isValid.splice(5, 1, false);
-		}
-	});
-	console.log({ validRadio, isValid });
-};
-
-const checkCgv = () => {
-	const checkbox1Value = checkbox1.checked;
-	if (checkbox1Value == false) {
-		setErrorFor(
-			checkbox1,
-			"Vous devez vérifier que vous acceptez les termes et conditions."
-		);
-		isValid.splice(6, 1, false);
-	} else {
-		setSuccessFor(checkbox1);
-		isValid.splice(6, 1, true);
-	}
-}
-
-function showValidationMessage() {
-	inputs.forEach((input) => resetInput(input));
-	modalForm.style.visibility = "hidden";
-	validationMessage.style.visibility = "visible";
-	closeBtn.style.visibility = "visible";
-}
-
-// EVENT LISTENERS //
-
-// reset input on focus, check on blur
-inputs.forEach((input) => {
-	input.addEventListener("focus", () => resetInput(input));
-	input.addEventListener("blur", () => checkInput(input));
-});
-
-//check if checkbox is checked on click
-checkbox1.addEventListener("click", () => checkCgv(checkbox1));
-//check if location is checked on click
-locations.forEach((location) => {
-	// location.addEventListener('click', () => checkLocation())
-	location.addEventListener("click", () => resetInput(location));
-});
-
-function resetInput(input) {
-	if (input.parentElement.classList.contains("error")) {
-		input.parentElement.classList.remove("error");
-	}
-	if (input.parentElement.classList.contains("success")) {
-		input.parentElement.classList.remove("success");
-	}
 }
 
 function checkInput(input) {
@@ -218,7 +147,7 @@ function checkInput(input) {
 			break;
 		case birthdate:
 			if (birthdateValue === "") {
-				setErrorFor(birthdate, "Veuillez entrer une date.");
+				setErrorFor(birthdate, "Veuillez entrer votre date de naissance.");
 				isValid.splice(3, 1, false);
 			} else {
 				compareDate(birthdate, birthdateValue);
@@ -259,12 +188,12 @@ function setSuccessFor(input) {
 	formData.classList.add("success");
 }
 
-function isEmail(email) {
-	return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+function isName(name) {
+	return (/^[a-zA-Z \-éèëê]+$/).test(name);
 }
 
-function isName(name) {
-	return /^[a-zA-Z \-éèëê]+$/.test(name);
+function isEmail(email) {
+	return (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(email);
 }
 
 const compareDate = (input, inputValue) => {
@@ -273,13 +202,11 @@ const compareDate = (input, inputValue) => {
 
 	// si la date naissance est supérieur à la date du jour :
 	if (dateValue > dateDuJour) {
-		console.log("date supérieur a la date du jour");
 		setErrorFor(input, "La date est supérieur à la date du jour");
 		isValid.splice(3, 1, false);
 	}
 	// si la date de naissance est supérieure à 110 ans
 	else if (dateValue < -1824422400000) {
-		console.log("+ que 110 ans");
 		setErrorFor(input, "êtes vous sur ?");
 		isValid.splice(3, 1, false);
 	} else {
@@ -287,8 +214,78 @@ const compareDate = (input, inputValue) => {
 		isValid.splice(3, 1, true);
 	}
 };
-
 // console.log(new Date(1912,2,10).getTime()); // -1824422400000 = 110 ans
+
+const checkLocation = () => {
+	let validRadio = [];
+	locations.forEach( location => {
+		let locationValue = location.checked;
+		if (locationValue == false) {
+			validRadio.push(false);
+		} else {
+			validRadio.push(true);
+		}
+		if (validRadio.filter( response => response == true).length > 0) {
+			isValid.splice(5, 1, true);
+			setSuccessFor(location);
+		} else {
+			setErrorFor(location, "Vous devez choisir une option.");
+			isValid.splice(5, 1, false);
+		}
+	});
+	console.log({ validRadio, isValid });
+};
+
+const checkCgv = () => {
+	const checkbox1Value = checkbox1.checked;
+	if (checkbox1Value == false) {
+		setErrorFor(
+			checkbox1,
+			"Vous devez vérifier que vous acceptez les termes et conditions."
+		);
+		isValid.splice(6, 1, false);
+	} else {
+		setSuccessFor(checkbox1);
+		isValid.splice(6, 1, true);
+	}
+}
+
+
+function showValidationMessage() {
+	inputs.forEach((input) => resetInput(input));
+	modalForm.style.visibility = "hidden";
+	validationMessage.style.visibility = "visible";
+	closeBtn.style.visibility = "visible";
+}
+
+// close modal when validation message
+closeBtn.addEventListener("click", function () {
+	closeForm();
+	launchNewForm();
+});
+
+// reset input on focus, check on blur
+inputs.forEach((input) => {
+	input.addEventListener("focus", () => resetInput(input));
+	input.addEventListener("blur", () => checkInput(input));
+});
+
+//check if checkbox is checked on click
+checkbox1.addEventListener("click", () => checkCgv(checkbox1));
+//check if location is checked on click
+locations.forEach((location) => {
+	// location.addEventListener('click', () => checkLocation())
+	location.addEventListener("click", () => resetInput(location));
+});
+
+function resetInput(input) {
+	if (input.parentElement.classList.contains("error")) {
+		input.parentElement.classList.remove("error");
+	}
+	if (input.parentElement.classList.contains("success")) {
+		input.parentElement.classList.remove("success");
+	}
+}
 
 // année copyright
 const year = new Date().getFullYear();
