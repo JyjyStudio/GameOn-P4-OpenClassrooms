@@ -76,6 +76,14 @@ function launchNewForm() {
 	}
 }
 
+function resetInput(input) {
+	if (input.parentElement.classList.contains("error")) {
+		input.parentElement.classList.remove("error");
+	}
+	if (input.parentElement.classList.contains("success")) {
+		input.parentElement.classList.remove("success");
+	}
+}
 
 // Form on submit event
 
@@ -276,15 +284,6 @@ locations.forEach((location) => {
 	// location.addEventListener('click', () => checkLocation())
 	location.addEventListener("click", () => resetInput(location));
 });
-
-function resetInput(input) {
-	if (input.parentElement.classList.contains("error")) {
-		input.parentElement.classList.remove("error");
-	}
-	if (input.parentElement.classList.contains("success")) {
-		input.parentElement.classList.remove("success");
-	}
-}
 
 // année copyright
 const year = new Date().getFullYear();
