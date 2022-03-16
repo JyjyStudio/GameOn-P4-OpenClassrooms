@@ -178,6 +178,20 @@ function checkInput(input) {
 	}
 }
 
+// pour eviter d'inserer des caractere comme + - ou e (deprecated)
+quantity.addEventListener("keypress", function (e) {
+	// 48-57 for 0-9 numbers
+	// 13 for enter
+	if (e.keyCode != 13 && e.keyCode < 48 || e.keyCode > 57) {
+		e.preventDefault();
+	}
+});
+
+//pour eviter que les caracteres '+' '-' et 'e' passent en faisant un copier/coller ex:  1e5+- passe pas
+quantity.addEventListener("input", function() {
+	this.value = this.value.replace(/[e\+\-]/gi, "");
+});
+
 function setErrorFor(input, message) {
 	resetInput(input);
 	// add error class
